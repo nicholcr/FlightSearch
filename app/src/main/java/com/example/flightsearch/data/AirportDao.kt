@@ -9,7 +9,7 @@ interface AirportDao {
 
     @Query("SELECT * from airport WHERE name LIKE '%usrSearch%'" +
             "OR iata_code LIKE '%usrSearch%' ORDER BY passengers DESC")
-    fun getAirport(usrSearch: String): Flow<List<Airport?>>
+    fun getMatchingAirports(usrSearch: String): Flow<List<Airport?>>
 
     @Query("SELECT * from airport WHERE name NOT LIKE '%usrSearch%'" +
             "OR iata_code NOT LIKE '%usrSearch%' ORDER BY passengers DESC")
