@@ -7,15 +7,19 @@ import android.content.Context
  */
 interface AppContainer {
     val flightSearchRepository: FlightSearchRepository
+    val userPreferencesRepository: UserPreferencesRepository
 }
 
 class AppDataContainer(private val context: Context) : AppContainer {
-    val flightSearchDatabase = FlightSearchDatabase.getDatabase(context)
+    private val flightSearchDatabase = FlightSearchDatabase.getDatabase(context)
 
     override val flightSearchRepository: FlightSearchRepository by lazy {
         OfflineFlightSearchRepository(
             flightSearchDatabase.airportDao(),
             flightSearchDatabase.favoriteDao()
         )
+    }
+    override val userPreferencesRepository: UserPreferencesRepository by lazy {
+        UserPreferencesRepository(context.dataStore)
     }
 }
